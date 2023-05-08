@@ -5,9 +5,9 @@
 <h1>Hello! _mainpage</h1>
 <img src="{% static 'images/logo.jpeg' %}" style="width:500px;">
 <br>
-<a href="{% url 'new' %}">글 쓰기</a>
+<button type="button"><a href="{% url 'main:new' %}">글 쓰기</a></button><br><br>
 
-<h1>글 목록</h1>
+<h1>글 목록</h1><br>
 
 <div>
     {% for blog in blogs %}
@@ -15,7 +15,12 @@
         <h3>{{blog.title}}</h3>
         작성자 : {{blog.writer}}<br>
         내  용 : {{blog.summary}}<br>
-        <a href="{%url 'detail' blog.id %}">...더보기</a><br>
+        {% if blog.image %}
+            <p><img src="{{blog.image.url}}" alt="사진" width="100px" height="100px"></p>
+        {% endif %}
+        <a href="{% url 'main:detail' blog.id %}">...더보기</a>
+        <a href="{% url 'main:delete' blog.id %}">삭제</a><br>
+        <hr>
     </div>
     {% endfor %}
 </div>
